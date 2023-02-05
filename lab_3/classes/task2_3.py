@@ -38,4 +38,6 @@ class Rectangle(Shape):
 
 figure3 = Rectangle(3, 4)
 
+
 print(figure3.area())
+

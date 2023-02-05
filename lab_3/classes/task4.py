@@ -25,4 +25,4 @@ figure1 = Point(4, 5)
 
 figure1.move(4, 5)
 figure1.show()
-figure1.dist(2, 3)
+figure1.dist(3, 4)
