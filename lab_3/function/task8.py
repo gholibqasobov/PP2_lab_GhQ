@@ -7,4 +7,4 @@ def spy_game(l):
 
     return False
 
-print(spy_game([1,7,2,0,4,5,0]))
+print(spy_game([1,0,2,0,4,5,7]))

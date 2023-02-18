@@ -17,4 +17,4 @@ class account:
 owner1 = account()
 
 owner1.deposit(500)
-owner1.withdraw(504)
+owner1.withdraw(300)

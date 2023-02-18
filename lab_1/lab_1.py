@@ -144,7 +144,7 @@ print("My name is John, and I am ()".format(age))
 
 
 
-# Python Variables
+# Python Booleans
 
 # Exercise 1
 print(10 > 9)

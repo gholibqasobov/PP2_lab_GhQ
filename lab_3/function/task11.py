@@ -10,3 +10,5 @@ def palindrome(word):
         print(True)
     else:
         print(False)
+
+palindrome(word)
