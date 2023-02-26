@@ -8,4 +8,3 @@ if result:
     print("Sequence:", result.group(), "found in position", result.start())
 else:
     print("Sequence match not found")
-

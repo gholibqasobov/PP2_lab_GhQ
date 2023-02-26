@@ -7,4 +7,3 @@ for word in result:
     res.append(word.capitalize())
 
 print("".join(res))
-
