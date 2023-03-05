@@ -1,0 +1,5 @@
+hello world
+write a program
+to count number
+of lines in a text file
+make
