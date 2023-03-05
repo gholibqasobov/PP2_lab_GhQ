@@ -1,11 +1,5 @@
 import os
 
-# rootdir = input()
-# for file in os.listdir(rootdir):
-#     d = os.path.join(rootdir, file)
-#     if os.path.isdir(d):
-#         print(d)
-
 path = input('Enter path: ')
 
 

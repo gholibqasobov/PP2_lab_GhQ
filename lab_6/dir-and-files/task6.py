@@ -1,4 +1,4 @@
-file = open('task6.txt', 'r')
+file = open('../text_files/task6.txt', 'r')
 count = 0
 for line in file:
     count += 1
