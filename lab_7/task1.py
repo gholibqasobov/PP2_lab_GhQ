@@ -35,4 +35,6 @@ while run:
 
 
     pygame.display.flip()
-    pygame.quit()
+    
+    
+pygame.quit()
