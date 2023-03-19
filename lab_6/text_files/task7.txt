@@ -1,4 +1,3 @@
-Mango
-Orange
-Apple
-Lemon
+a
+s
+d

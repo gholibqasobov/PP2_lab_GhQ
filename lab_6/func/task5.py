@@ -1,4 +1,4 @@
-tpl = (True, True, True, True)
+tpl = (True, True, True, False)
 
 
 def all_true(tpl):
