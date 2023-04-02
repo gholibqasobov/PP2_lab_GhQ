@@ -33,6 +33,8 @@ while run:
     rot_min_rect = rot_min.get_rect(center=center)
     screen.blit(rot_min, rot_min_rect)
 
+
     pygame.display.flip()
+
 
 pygame.quit()
