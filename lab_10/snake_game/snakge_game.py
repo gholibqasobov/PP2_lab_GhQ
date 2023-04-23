@@ -338,13 +338,46 @@ def start_game(user_nick):
             snake_speed += (level * 6)
 
         if level >= 3:
-            pygame.draw.rect(game_window, red, (0, 0, window_x, 10))
-            pygame.draw.rect(game_window, red, (0, 0, 10, window_y))
-            pygame.draw.rect(game_window, red, (window_x - 10, 0, 10, window_y))
-            pygame.draw.rect(game_window, red, (0, window_y - 10, window_x, 10))
+            pygame.draw.rect(game_window, white, (0, 0, window_x, 10))
+            pygame.draw.rect(game_window, white, (0, 0, 10, window_y))
+            pygame.draw.rect(game_window, white, (window_x - 10, 0, 10, window_y))
+            pygame.draw.rect(game_window, white, (0, window_y - 10, window_x, 10))
 
-            pygame.draw.rect(game_window, red, (100, 140, 520, 20))
-            pygame.draw.rect(game_window, red, (100, 290, 520, 20))
+            pygame.draw.rect(game_window, white, (100, 140, 520, 20))
+            pygame.draw.rect(game_window, white, (100, 290, 520, 20))
+
+            if snake_position[0] < 10 or snake_position[0] > window_x - 30:
+                get_user_info(user_nick, score, level)
+                game_over()
+            if snake_position[1] < 10 or snake_position[1] > window_y - 30:
+                get_user_info(user_nick, score, level)
+                game_over()
+
+            if snake_position[1] < 160 and snake_position[1] > 140 and snake_position[0] > 90 and snake_position[0] < 620:
+                get_user_info(user_nick, score, level)
+                game_over()
+
+            if snake_position[1] < 310 and snake_position[1] > 280 and snake_position[0] > 90 and snake_position[0] < 620:
+                get_user_info(user_nick, score, level)
+                game_over()
+
+
+            if fruit_position[0] < 10 or fruit_position[0] > window_x - 30:
+                fruit_position = [random.randrange(1, (window_x // 10)) * 10,
+                                  random.randrange(1, (window_y // 10)) * 10]
+            if fruit_position[1] < 10 or fruit_position[1] > window_y - 30:
+                fruit_position = [random.randrange(1, (window_x // 10)) * 10,
+                              random.randrange(1, (window_y // 10)) * 10]
+
+            if fruit_position[1] < 160 and snake_position[1] > 140 and fruit_position[0] > 90 and fruit_position[0] < 620:
+                fruit_position = [random.randrange(1, (window_x // 10)) * 10,
+                                  random.randrange(1, (window_y // 10)) * 10]
+
+            if fruit_position[1] < 310 and fruit_position[1] > 280 and fruit_position[0] > 90 and fruit_position[0] < 620:
+                fruit_position = [random.randrange(1, (window_x // 10)) * 10,
+                                  random.randrange(1, (window_y // 10)) * 10]
+
+
 
         drawText('Level %s' % (level), font, game_window, 640, 10)
         drawText('Player: %s' % (user_nick), font, game_window, 10, 30)
@@ -412,3 +445,6 @@ def get_user_name():
 
 
 get_user_name()
+
+
+# this is a comment
