@@ -14,67 +14,98 @@ blue = pygame.Color(0, 0, 255)
 
 pygame.display.set_caption('Змейка')
 game_window = pygame.display.set_mode((window_x, window_y))
+pause = False
 
 
-def start_game(user_nick):
-    def get_user_info(user_name, score, level):
-        connection = None
-        cursor = None
-        try:
-            connection = psycopg2.connect(
-                host=host,
-                user=user,
-                password=password,
-                database=db_name
+def drawText(text, font, surface, x, y):
+    textobj = font.render(text, 1, 'white')
+    textrect = textobj.get_rect()
+    textrect.topleft = (x, y)
+    surface.blit(textobj, textrect)
+
+def paused(pause, user_nick, score, level):
+    pygame.init()
+
+    while pause:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pause = False
+                quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_v:
+                    pause = False
+                if event.key == pygame.K_s:
+                    get_user_info(user_nick, score, level)
+
+
+        pygame.draw.rect(game_window, 'lightskyblue3', (window_x/2-300, window_y/2-120, 600, 240))
+
+        drawText('Paused', font, game_window, window_x/2-20, window_y/2-100)
+        drawText('Press S to save', font, game_window, 120, window_y/2)
+        drawText('Press V to continue', font, game_window, 450, window_y/2)
+
+
+        pygame.display.flip()
+
+
+def get_user_info(user_name, score, level):
+    connection = None
+    cursor = None
+    try:
+        connection = psycopg2.connect(
+            host=host,
+            user=user,
+            password=password,
+            database=db_name
+        )
+        connection.autocommit = True
+
+        cursor = connection.cursor()
+
+        cursor.execute(
+            """
+            SELECT user_name FROM player_info WHERE user_name = '%s' 
+            """ % (user_name,)
+        )
+
+        user_exists = cursor.fetchone()
+
+        if user_exists is not None:
+            cursor.execute(
+                """
+                SELECT user_score FROM player_info WHERE user_name = (%s)
+                """, (user_name,)
             )
-            connection.autocommit = True
 
-            cursor = connection.cursor()
+            max_score = cursor.fetchone()[0]
+            # print(max_score)
+
+            if int(max_score) < score:
+                max_score = score
 
             cursor.execute(
                 """
-                SELECT user_name FROM player_info WHERE user_name = '%s' 
-                """ % (user_name,)
+                UPDATE player_info
+                SET user_score = %s, user_level = %s
+                WHERE user_name = %s
+                """, (str(max_score), str(level), (user_name,))
+            )
+        else:
+            cursor.execute(
+                """
+                INSERT INTO player_info(user_name, user_score, user_level)
+                VALUES (%s, %s, %s)
+                """, (user_name, str(score), str(level))
             )
 
-            user_exists = cursor.fetchone()
+    except Exception as _ex:
+        print("[INFO] Error working with PostgreSQL", _ex)
+    finally:
+        if connection:
+            connection.close()
+            cursor.close()
 
-            if user_exists is not None:
-                cursor.execute(
-                    """
-                    SELECT user_score FROM player_info WHERE user_name = (%s)
-                    """, (user_name,)
-                )
-
-                max_score = cursor.fetchone()[0]
-                # print(max_score)
-
-                if int(max_score) < score:
-                    max_score = score
-
-                cursor.execute(
-                    """
-                    UPDATE player_info
-                    SET user_score = %s, user_level = %s
-                    WHERE user_name = %s
-                    """, (str(max_score), str(level), (user_name,))
-                )
-            else:
-                cursor.execute(
-                    """
-                    INSERT INTO player_info(user_name, user_score, user_level)
-                    VALUES (%s, %s, %s)
-                    """, (user_name, str(score), str(level))
-                )
-
-        except Exception as _ex:
-            print("[INFO] Error working with PostgreSQL", _ex)
-        finally:
-            if connection:
-                connection.close()
-                cursor.close()
-
-    def show_user_info(user_name, score, level):
+def show_user_info(user_name, score, level):
         connection = None
         cursor = None
         user_score = score
@@ -125,6 +156,10 @@ def start_game(user_nick):
 
         return user_score, user_level
 
+
+def start_game(user_nick):
+
+
     snake_speed = 15
     pygame.init()
     fps = pygame.time.Clock()
@@ -163,11 +198,6 @@ def start_game(user_nick):
     else:
         level = 1
 
-    def drawText(text, font, surface, x, y):
-        textobj = font.render(text, 1, 'white')
-        textrect = textobj.get_rect()
-        textrect.topleft = (x, y)
-        surface.blit(textobj, textrect)
 
     # ends here
 
@@ -227,6 +257,8 @@ def start_game(user_nick):
     pygame.time.set_timer(timer_event, 1000)
     foo = False
     fruit_weight_list = [10, 15, 20]
+    global pause
+    pause = False
     # Ends here
 
     # Main Function
@@ -243,8 +275,11 @@ def start_game(user_nick):
                     change_to = 'LEFT'
                 if event.key == pygame.K_RIGHT:
                     change_to = 'RIGHT'
-                if event.key == pygame.K_s:
-                    get_user_info(user_nick, score, level)
+                if event.key == pygame.K_c:
+                    pause = True
+                    paused(pause, user_nick, score, level)
+
+
             # My code
             elif event.type == timer_event:
                 counter -= 1
@@ -445,6 +480,7 @@ def get_user_name():
 
 
 get_user_name()
+
 
 
 # this is a comment
