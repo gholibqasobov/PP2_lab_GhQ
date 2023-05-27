@@ -1,6 +1,7 @@
 class getData:
     name = None
 
+
     def getString(self, word):
         self.word = word
 

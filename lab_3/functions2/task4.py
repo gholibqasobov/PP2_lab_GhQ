@@ -84,7 +84,7 @@ def avg_imdb(lis):
         for el in lis:
             if movies[i]['name'] == el:
                 sum += movies[i]['imdb']
-                count +=1
+                count += 1
 
     return sum/count
 

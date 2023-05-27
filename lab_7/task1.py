@@ -25,14 +25,13 @@ while run:
     time = datetime.datetime.now()
     minutes, seconds = time.minute, time.second
 
-    rot_sec = pygame.transform.rotate(sec, (-6 * seconds) + 90)
+    rot_sec = pygame.transform.rotate(sec, (-6 * seconds) + 95)
     rot_sec_rect = rot_sec.get_rect(center=center)
     screen.blit(rot_sec, rot_sec_rect)
 
     rot_min = pygame.transform.rotate(min, (-6 * minutes) + 90)
     rot_min_rect = rot_min.get_rect(center=center)
     screen.blit(rot_min, rot_min_rect)
-
 
     pygame.display.flip()
 

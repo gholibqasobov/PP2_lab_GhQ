@@ -41,12 +41,12 @@ fruit_position = [random.randrange(1, (window_x // 10)) * 10,
                   random.randrange(1, (window_y // 10)) * 10]
 
 fruit_spawn = True
-# My code
-# t_fruit_position = [random.randrange(1, (window_x // 10)) * 10,
-#                   random.randrange(1, (window_y // 10)) * 10]
+# My code: disappearing fruit position
+t_fruit_position = [random.randrange(1, (window_x // 10)) * 10,
+                  random.randrange(1, (window_y // 10)) * 10]
 
-# t_fruit_spawn = True
-# t_fruit_weight = 25
+t_fruit_spawn = True
+t_fruit_weight = 25
 # ends here
 
 
@@ -59,14 +59,14 @@ change_to = direction
 score = 0
 
 
-# My code
-# level = 1
-# font = pygame.font.Font(None, 30)
-# def drawText(text, font, surface, x, y) :
-#     textobj = font.render(text, 1, 'white')
-#     textrect = textobj.get_rect()
-#     textrect.topleft = (x, y)
-#     surface.blit(textobj, textrect)
+# My code: level of the game and text to display it
+level = 1
+font = pygame.font.Font(None, 30)
+def drawText(text, font, surface, x, y) :
+    textobj = font.render(text, 1, 'white')
+    textrect = textobj.get_rect()
+    textrect.topleft = (x, y)
+    surface.blit(textobj, textrect)
 
 # ends here
 
@@ -117,12 +117,14 @@ def game_over() :
     # quit the program
     quit()
 
-# My code
-# counter = 7
-# timer_event = pygame.USEREVENT + 1
-# pygame.time.set_timer(timer_event, 1000)
-# foo = False
-# fruit_weight_list = [10, 15, 20]
+# My code: timer to the disappearing fruit
+counter = 7
+timer_event = pygame.USEREVENT + 1
+pygame.time.set_timer(timer_event, 1000)
+foo = False
+
+# fruit weight
+fruit_weight_list = [10, 15, 20]
 # Ends here
 
 # Main Function
@@ -139,16 +141,16 @@ while True :
                 change_to = 'LEFT'
             if event.key == pygame.K_RIGHT :
                 change_to = 'RIGHT'
-        # My code
-        # elif event.type == timer_event:
-        #     counter -= 1
-        #     if counter >= 8:
-        #         foo = True
-        #     else:
-        #         foo = False
-        #
-        #     if counter == 0:
-        #         counter = 12
+        # My code: disappearing fruit initialization
+        elif event.type == timer_event:
+            counter -= 1
+            if counter >= 8:
+                foo = True
+            else:
+                foo = False
+
+            if counter == 0:
+                counter = 12
             # Ends here
 
     # Если две клавиши нажаты одновременно
@@ -178,8 +180,8 @@ while True :
     # будет увеличено на 10
     snake_body.insert(0, list(snake_position))
     if snake_position[0] == fruit_position[0] and snake_position[1] == fruit_position[1] :
-        # score += random.choice(fruit_weight_list)
-        score += 10
+        score += random.choice(fruit_weight_list)
+        # score += 10
         fruit_spawn = False
     else:
         snake_body.pop()
@@ -191,20 +193,20 @@ while True :
     fruit_spawn = True
     game_window.fill(black)
 
-    # My code
-    # if foo:
-    #     if snake_position[0] == t_fruit_position[0] and snake_position[1] == t_fruit_position[1]:
-    #         counter = 7
-    #         score += t_fruit_weight
-    #         t_fruit_spawn = False
-    #     pygame.draw.rect(game_window, 'orange', (t_fruit_position[0], t_fruit_position[1], 10, 10))
-    #
-    #     if not t_fruit_spawn:
-    #         counter = 7
-    #         t_fruit_position = [random.randrange(1, (window_x // 10)) * 10,
-    #                             random.randrange(1, (window_y // 10)) * 10]
-    #
-    #     t_fruit_spawn = True
+    # My code: display disappearing fruit
+    if foo:
+        if snake_position[0] == t_fruit_position[0] and snake_position[1] == t_fruit_position[1]:
+            counter = 7
+            score += t_fruit_weight
+            t_fruit_spawn = False
+        pygame.draw.rect(game_window, 'orange', (t_fruit_position[0], t_fruit_position[1], 10, 10))
+
+        if not t_fruit_spawn:
+            counter = 7
+            t_fruit_position = [random.randrange(1, (window_x // 10)) * 10,
+                                random.randrange(1, (window_y // 10)) * 10]
+
+        t_fruit_spawn = True
     # ends here
 
 
@@ -225,12 +227,12 @@ while True :
         if snake_position[0] == block[0] and snake_position[1] == block[1] :
             game_over()
 
-    # My code
-    # if score >= level * 30:
-    #     level += 1
-    #     snake_speed += 5
-    #
-    # drawText('Level %s' % (level), font, game_window, 640, 10)
+    # My code: level up
+    if score >= level * 3:
+        level += 1
+        snake_speed += 5
+
+    drawText('Level %s' % (level), font, game_window, 640, 10)
     # ends here
 
 

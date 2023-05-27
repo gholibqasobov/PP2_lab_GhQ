@@ -1,4 +1,4 @@
-class account:
+class Account:
     owner = None
     balance = 0
 
@@ -14,7 +14,7 @@ class account:
             print("You don't have enough money to withdraw!")
 
 
-owner1 = account()
+owner1 = Account()
 
 owner1.deposit(500)
 owner1.withdraw(300)

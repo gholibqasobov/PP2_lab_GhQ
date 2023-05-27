@@ -52,13 +52,13 @@ score = 0
 
 
 # My code
-# level = 1
-# font = pygame.font.Font(None, 30)
-# def drawText(text, font, surface, x, y) :
-#     textobj = font.render(text, 1, 'white')
-#     textrect = textobj.get_rect()
-#     textrect.topleft = (x, y)
-#     surface.blit(textobj, textrect)
+level = 1
+font = pygame.font.Font(None, 30)
+def drawText(text, font, surface, x, y) :
+    textobj = font.render(text, 1, 'white')
+    textrect = textobj.get_rect()
+    textrect.topleft = (x, y)
+    surface.blit(textobj, textrect)
 
 # ends here
 
@@ -182,11 +182,11 @@ while True :
             game_over()
 
     # My code
-    # if score >= level * 30:
-    #     level += 1
-    #     snake_speed += 5
-    #
-    # drawText('Level %s' % (level), font, game_window, 640, 10)
+    if score >= level * 30:
+        level += 1
+        snake_speed += 5
+
+    drawText('Level %s' % (level), font, game_window, 640, 10)
     # ends here
 
 

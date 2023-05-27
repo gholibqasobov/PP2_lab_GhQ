@@ -426,7 +426,7 @@ def start_game(user_nick):
         pygame.display.update()
 
         # Frame Per Second /Refresh Rate
-        fps.tick(snake_speed)
+        fps.tick(snake_speed + 10)
 
 
 def get_user_name():

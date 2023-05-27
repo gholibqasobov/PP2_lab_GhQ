@@ -15,18 +15,18 @@ try:
     connection.autocommit = True
 
 
-    # CREATE A TABLE
-    with connection.cursor() as cursor:
-        cursor.execute(
-            """
-            CREATE TABLE phone_book (
-            user_id SERIAL PRIMARY KEY,
-            user_name VARCHAR(150) NOT NULL,
-            phone_num VARCHAR(15) NOT NULL
-            )
-            """
-        )
-        print("[INFO] Table created successfully!")
+    # # CREATE A TABLE
+    # with connection.cursor() as cursor:
+    #     cursor.execute(
+    #         """
+    #         CREATE TABLE phone_book (
+    #         user_id SERIAL PRIMARY KEY,
+    #         user_name VARCHAR(150) NOT NULL,
+    #         phone_num VARCHAR(15) NOT NULL
+    #         )
+    #         """
+    #     )
+    #     print("[INFO] Table created successfully!")
 
 
 
@@ -161,8 +161,8 @@ try:
     # cursor.execute(
     #     """
     #     DELETE FROM phone_book
-    #     WHERE user_name = 'Titus'
-    #     """)
+    #     WHERE user_name = %s
+    #     """, (user_name, ))
 
 
 

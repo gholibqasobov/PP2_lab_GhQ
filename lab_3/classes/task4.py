@@ -2,8 +2,6 @@ from math import sqrt
 
 
 class Point:
-    x = None
-    y = None
 
     def __init__(self, x, y):
         self.x = x

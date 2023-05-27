@@ -46,12 +46,12 @@ def playerHasHitBaddie(playerRect, baddies):
 
 
 # my code
-# def playerHasHitCoin(playerRect, coins):
-#     for coin in coins:
-#         if playerRect.colliderect(coin['rect']):
-#             coins.remove(coin)
-#             return True
-#     return False
+def playerHasHitCoin(playerRect, coins):
+    for coin in coins:
+        if playerRect.colliderect(coin['rect']):
+            coins.remove(coin)
+            return True
+    return False
 # ends here
 
 def drawText(text, font, surface, x, y):
@@ -87,7 +87,7 @@ wallLeft = pygame.image.load('image/left.png')
 wallRight = pygame.image.load('image/right.png')
 
 # My code
-# coinImage = pygame.image.load('image/653278_coin_bitcoin_cash_currency_dollar_icon.png')
+coinImage = pygame.image.load('image/653278_coin_bitcoin_cash_currency_dollar_icon.png')
 # ends here
 
 
@@ -99,14 +99,14 @@ waitForPlayerToPressKey()
 zero = 0
 
 # My Code
-# if not os.path.exists('data/coins_count.dat'):
-#     f = open('data/coins_count.dat', 'w')
-#     f.write((str(zero)))
-#     f.close()
-#
-#     v = open('data/coins_count.dat')
-#     most_coin = int(v.readline())
-#     v.close()
+if not os.path.exists('data/coins_count.dat'):
+    f = open('data/coins_count.dat', 'w')
+    f.write((str(zero)))
+    f.close()
+
+    v = open('data/coins_count.dat')
+    most_coin = int(v.readline())
+    v.close()
 # ends here
 
 if not os.path.exists("data/save.dat"):
@@ -182,18 +182,18 @@ while (count > 0):
         if not reverseCheat and not slowCheat:
             baddieAddCounter += 1
         # My code
-        #     coinAddCounter += 1
-        #
-        # if coinAddCounter == ADDNEWCOINS + 10:
-        #     coinAddCounter = 0
-        #     coinSize = 10
-        #
-        #     newCoin = {'rect': pygame.Rect(random.randint(140, 485), 0 - coinSize, 30, 30),
-        #                'speed': COINSPEED,
-        #                'surface': pygame.transform.scale(coinImage, (30, 30))
-        #                }
-        #
-        #     coins.append(newCoin)
+            coinAddCounter += 1
+
+        if coinAddCounter == ADDNEWCOINS + 10:
+            coinAddCounter = 0
+            coinSize = 10
+
+            newCoin = {'rect': pygame.Rect(random.randint(140, 485), 0 - coinSize, 30, 30),
+                       'speed': COINSPEED,
+                       'surface': pygame.transform.scale(coinImage, (30, 30))
+                       }
+
+            coins.append(newCoin)
 
         # ends here
 
@@ -229,17 +229,17 @@ while (count > 0):
 
         # My code
 
-        # for coin in coins:
-        #     if not reverseCheat and not slowCheat:
-        #         coin['rect'].move_ip(0, coin['speed'])
-        #     elif reverseCheat:
-        #         coin['rect'].move_ip(0, -5)
-        #     elif slowCheat:
-        #         coin['rect'].move_ip(0, 1)
-        #
-        # for coin in coins[:]:
-        #     if coin['rect'].top > WINDOWHEIGHT:
-        #         coins.remove(coin)
+        for coin in coins:
+            if not reverseCheat and not slowCheat:
+                coin['rect'].move_ip(0, coin['speed'])
+            elif reverseCheat:
+                coin['rect'].move_ip(0, -5)
+            elif slowCheat:
+                coin['rect'].move_ip(0, 1)
+
+        for coin in coins[:]:
+            if coin['rect'].top > WINDOWHEIGHT:
+                coins.remove(coin)
 
         # ends here
 
@@ -264,15 +264,15 @@ while (count > 0):
         drawText('Rest Life: %s' % (count), font, windowSurface, 128, 40)
 
         # My code
-        # drawText('Coins: %s' %(coin_count), font, windowSurface, 350, 20)
-        # drawText('Most Coins %s' % (most_coin), font, windowSurface, 350, 40)
+        drawText('Coins: %s' %(coin_count), font, windowSurface, 350, 20)
+        drawText('Most Coins %s' % (most_coin), font, windowSurface, 350, 40)
         # ends here
 
         windowSurface.blit(playerImage, playerRect)
 
         # My code
-        # for coin in coins:
-        #     windowSurface.blit(coin['surface'], coin['rect'])
+        for coin in coins:
+            windowSurface.blit(coin['surface'], coin['rect'])
 
         # ends here
 
@@ -281,8 +281,8 @@ while (count > 0):
 
         pygame.display.update()
         # my code
-        # if playerHasHitCoin(playerRect, coins):
-        #     coin_count += 1
+        if playerHasHitCoin(playerRect, coins):
+            coin_count += 1
 
         # ends here
 
@@ -290,11 +290,11 @@ while (count > 0):
         # Check if any of the car have hit the player.
         if playerHasHitBaddie(playerRect, baddies):
             # My code
-            # if coin_count > most_coin:
-            #     fi = open('data/coins_count.dat', 'w')
-            #     fi.write(str(coin_count))
-            #     fi.close()
-            #     most_coin = coin_count
+            if coin_count > most_coin:
+                fi = open('data/coins_count.dat', 'w')
+                fi.write(str(coin_count))
+                fi.close()
+                most_coin = coin_count
             # ends here
             if score > topScore:
                 g = open("data/save.dat", 'w')
